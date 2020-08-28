@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "LyuPo7_gendiff"
+version = "0.1.0"
+description = "Python project #2 with Hexlet: Gendiff"
+authors = ["LyuPo <lport@frtk.ru>"]
+classifiers = [
+    "Topic :: Software Development :: Build Tools",
+    "Topic :: Software Development :: Libraries :: Python Modules"
+]
+repository = "https://github.com/LyuPo7/python-project-lvl2"
+packages = [
+  { include = "gendiff" },
+]
+
+[tool.poetry.dependencies]
+python = "^3.6"
+argparse = "^1.4.0"
+
+[tool.poetry.dev-dependencies]
+
+[tool.poetry.scripts]
+gendiff = "gendiff.scripts.gendiff:main"
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
