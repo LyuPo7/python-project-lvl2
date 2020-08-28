@@ -20,5 +20,12 @@ def create_parser ():
         type=str,
         help='first file'
     )
+    parser.add_argument(
+        '-f',
+        '--format',
+        type=str,
+        default="",
+        help="set format of output",
+        metavar="FORMAT")
     
     return parser
