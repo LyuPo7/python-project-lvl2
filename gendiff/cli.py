@@ -2,7 +2,7 @@
 
 """Functions of project."""
 import argparse
-
+import json
 
 def create_parser ():
     parser = argparse.ArgumentParser(
@@ -29,3 +29,26 @@ def create_parser ():
         metavar="FORMAT")
     
     return parser
+
+
+def generate_diff(file_path1, file_path2):
+    data_file1 = json.load(open(file_path1))
+    data_file2 = json.load(open(file_path2))
+
+    keys_in_f1 = data_file1.keys()
+    keys_in_f2 = data_file2.keys()
+    all_keys = set(keys_in_f1).union(keys_in_f2)
+    result = []
+
+    for key in all_keys:
+        if key in keys_in_f1 and key in keys_in_f2:
+            if data_file1[key] == data_file2[key]:
+                result.append("  {arg1}: {arg2}".format(arg1=key, arg2=data_file1[key]))
+            else:
+                result.append("- {arg1}: {arg2}".format(arg1=key, arg2=data_file1[key]))
+                result.append("+ {arg1}: {arg2}".format(arg1=key, arg2=data_file2[key]))
+        elif key in keys_in_f1 and key not in keys_in_f2:
+            result.append("- {arg1}: {arg2}".format(arg1=key, arg2=data_file1[key]))
+        elif key not in keys_in_f1 and key in keys_in_f2:
+            result.append("+ {arg1}: {arg2}".format(arg1=key, arg2=data_file2[key]))
+    return '\n'.join(result)
