@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "LyuPo7_gendiff"
-version = "0.3.7"
+version = "0.3.8"
 description = "Python project #2 with Hexlet: Gendiff"
 authors = ["LyuPo <lport@frtk.ru>"]
 classifiers = [
@@ -19,7 +19,6 @@ pytest = "^6.0.2"
 flake8 = "^3.8.3"
 
 [tool.poetry.dev-dependencies]
-wemake-python-styleguide = "^0.14.1"
 
 [tool.poetry.scripts]
 gendiff = "gendiff.scripts.gendiff:main"
