@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "LyuPo7_gendiff"
-version = "0.3.2"
+version = "0.3.3"
 description = "Python project #2 with Hexlet: Gendiff"
 authors = ["LyuPo <lport@frtk.ru>"]
 classifiers = [
