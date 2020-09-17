@@ -4,9 +4,15 @@
 import argparse
 import json
 
-def create_parser ():
+
+def create_parser():
+    """Create parser.
+
+    Returns:
+        parser - parser.
+    """
     parser = argparse.ArgumentParser(
-		prog='gendiff',
+        prog='gendiff',
 		description="""Description: 
             The program finds difference between two files.
             """,

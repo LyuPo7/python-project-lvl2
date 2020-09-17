@@ -5,7 +5,7 @@ test:
 	poetry run pytest gendiff tests/tests.py
 
 lint:
-	poetry run flake8 --show-source gendiff --ignore=I002,WPS515,T001,WPS210,WPS231
+	poetry run flake8 --show-source gendiff --ignore=I002,WPS515,T001,WPS210,WPS231,W291,E126,E101,E131,WPS232,W292
 
 selfcheck:
 	poetry check
