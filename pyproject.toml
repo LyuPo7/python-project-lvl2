@@ -19,7 +19,7 @@ pytest = "^6.0.2"
 flake8 = "^3.8.3"
 
 [tool.poetry.dev-dependencies]
-wemake-python-styleguide = "^0.13.4"
+wemake-python-styleguide = "^0.14.1"
 
 [tool.poetry.scripts]
 gendiff = "gendiff.scripts.gendiff:main"
