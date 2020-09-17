@@ -6,6 +6,8 @@
 
 <a href="https://travis-ci.org/LyuPo7/python-project-lvl1"><img src="https://travis-ci.org/LyuPo7/python-project-lvl1.svg?branch=master"></a>
 
+![Python package](https://github.com/LyuPo7/python-project-lvl2/workflows/Python%20package/badge.svg)
+
 <h3>Project Description:</h3>
     <p>Project consists of 5 mini-brain-games:</p>
     <ul>
