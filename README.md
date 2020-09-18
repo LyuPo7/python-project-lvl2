@@ -4,7 +4,7 @@
 
 <a href="https://codeclimate.com/github/LyuPo7/python-project-lvl2/test_coverage"><img src="https://api.codeclimate.com/v1/badges/b068d8adf854428f2f41/test_coverage" /></a>
 
-<a href="https://travis-ci.org/LyuPo7/python-project-lvl1"><img src="https://travis-ci.org/LyuPo7/python-project-lvl1.svg?branch=master"></a>
+<a href="https://travis-ci.org/LyuPo7/python-project-lvl2"><img src="https://travis-ci.org/LyuPo7/python-project-lvl2.svg?branch=master"></a>
 
 ![Python package](https://github.com/LyuPo7/python-project-lvl2/workflows/Python%20package/badge.svg)
 
