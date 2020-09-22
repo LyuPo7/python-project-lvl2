@@ -30,10 +30,4 @@
     Choose any and play.
     <p><i>(More information in asciinemas below)</i></p>
 
-<a href="https://asciinema.org/a/303493" target="_blank"><img src="https://asciinema.org/a/303493.svg" /></a>
-  
-<a href="https://asciinema.org/a/303523" target="_blank"><img src="https://asciinema.org/a/303523.svg" /></a>
-
-<a href="https://asciinema.org/a/303834" target="_blank"><img src="https://asciinema.org/a/303834.svg" /></a>
-
-<a href="https://asciinema.org/a/307949" target="_blank"><img src="https://asciinema.org/a/307949.svg" /></a>
+<a href="https://asciinema.org/a/360387" target="_blank"><img src="https://asciinema.org/a/360387.svg" /></a>
