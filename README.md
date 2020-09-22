@@ -22,12 +22,17 @@
 
 <h3>Installation:</h3>
     <p>for install type in command line:</p>
-        <i>python3 -m pip install --no-cache-dir --index-url https://test.pypi.org/simple --extra-index-url https://pypi.org/simple lyupo7-brain-games</i>
+        <i>python3 -m pip install --no-cache-dir --index-url https://test.pypi.org/simple --extra-index-url https://pypi.org/simple lyupo7-gendiff</i>
 
-<h3>How to play?</h3>
-    <p>Use <b>brain_games</b> command.</p>
-    Game will invite your 5 to play.
-    Choose any and play.
+<h3>How to use?</h3>
+    <p>Use <b>gendiff</b> command with appropriate keys.</p>
     <p><i>(More information in asciinemas below)</i></p>
 
-<a href="https://asciinema.org/a/360387" target="_blank"><img src="https://asciinema.org/a/360387.svg" /></a>
+<h4>Compare json format files</h4>
+    <p>gendiff -f json <path2file1> <path2file2></p>
+    <a href="https://asciinema.org/a/361037" target="_blank"><img src="https://asciinema.org/a/361037.svg" /></a>
+
+<h4>Compare yaml format files</h4>
+    <p>gendiff -f yaml <path2file1> <path2file2></p>
+    <a href="https://asciinema.org/a/361039" target="_blank"><img src="https://asciinema.org/a/361039.svg" /></a>
+
