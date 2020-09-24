@@ -7,11 +7,22 @@ import yaml
 yaml.warnings({'YAMLLoadWarning': False})
 
 
-def json_loader(file_path1, file_path2):
-    """Load json 2 files."""
-    return (json.load(open(file_path1)), json.load(open(file_path2)))
+def generate_formats_dict():
+    """Generate dictionary of the formats.
+
+    Returns:
+        dictionary(dict) - dictionary of the formats,
+    """
+    return {
+        'json': json.load,
+        'yaml': yaml.load,
+    }
 
 
-def yaml_loader(file_path1, file_path2):
+def file_loader(file_path1, file_path2, format):
     """Load yaml 2 files."""
-    return (yaml.load(open(file_path1)), yaml.load(open(file_path2)))
+    loaders = generate_formats_dict()
+    return (
+        loaders[format](open(file_path1)),
+        loaders[format](open(file_path2))
+    )
