@@ -41,7 +41,7 @@ def test_generate_diff_json_recursive():
         'tests/fixtures/json/file3.json',
         'tests/fixtures/json/file4.json',
     )
-    file_w_answer = open('tests/fixtures/diff_file3_file4.txt',)
+    file_w_answer = open('tests/fixtures/diff_file3_file4_dict.txt',)
 
     true_str = file_w_answer.read()
     true_list = true_str.split('\n')
@@ -60,6 +60,22 @@ def test_generate_diff_plain_output():
     file_w_answer = open('tests/fixtures/diff_file3_file4_plain.txt',)
 
     true_str = file_w_answer.read()
+    true_list = true_str.split('\n')
+    list4check = generated_str.split('\n')
+
+    assert set(true_list) == set(list4check)
+
+
+def test_generate_diff_json_output():
+    """Check generate_diff with json output."""
+    generated_str = generate_diff(
+        'tests/fixtures/json/file3.json',
+        'tests/fixtures/json/file4.json',
+        'json'
+    ).replace(',','')
+    file_w_answer = open('tests/fixtures/diff_file3_file4_json.json')
+
+    true_str = file_w_answer.read().replace(',','')
     true_list = true_str.split('\n')
     list4check = generated_str.split('\n')
 

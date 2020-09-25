@@ -3,6 +3,7 @@
 """Functions for work with json files."""
 
 from gendiff.file_loader.file_loader import file_loader
+from gendiff.views.dict.view import dict_view_diff
 from gendiff.views.json.view import json_view_diff
 from gendiff.views.plain.view import plain_view_diff
 
@@ -14,6 +15,7 @@ def generate_formats_dict():
         dictionary(dict) - dictionary of the formats,
     """
     return {
+        'dict': dict_view_diff,
         'json': json_view_diff,
         'plain': plain_view_diff,
     }
@@ -83,7 +85,7 @@ def make_diff(data_file1, data_file2):
     return check_key(data_file1, data_file2)
 
 
-def generate_diff(file_path1, file_path2, format='json'):
+def generate_diff(file_path1, file_path2, format='dict'):
     data_file1, data_file2 = file_loader(file_path1, file_path2)
     choose_formats = generate_formats_dict()
     return choose_formats[format](make_diff(data_file1, data_file2))
