@@ -14,15 +14,19 @@ def generate_formats_dict():
         dictionary(dict) - dictionary of the formats,
     """
     return {
-        'json': json.load,
-        'yaml': yaml.load,
+        '.json': json.load,
+        '.yaml': yaml.load,
     }
 
 
-def file_loader(file_path1, file_path2, format):
+def file_loader(file_path1, file_path2):
     """Load yaml 2 files."""
     loaders = generate_formats_dict()
+    for key, file_type in loaders.items():
+        if file_path1.endswith(key):
+            loader = loaders[key]
+            break
     return (
-        loaders[format](open(file_path1)),
-        loaders[format](open(file_path2))
+        loader(open(file_path1)),
+        loader(open(file_path2))
     )

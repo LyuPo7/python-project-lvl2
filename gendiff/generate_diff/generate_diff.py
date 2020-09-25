@@ -3,6 +3,20 @@
 """Functions for work with json files."""
 
 from gendiff.file_loader.file_loader import file_loader
+from gendiff.views.json.view import json_view_diff
+from gendiff.views.plain.view import plain_view_diff
+
+
+def generate_formats_dict():
+    """Generate dictionary of the formats.
+
+    Returns:
+        dictionary(dict) - dictionary of the formats,
+    """
+    return {
+        'json': json_view_diff,
+        'plain': plain_view_diff,
+    }
 
 
 def check_dict(data):
@@ -69,34 +83,7 @@ def make_diff(data_file1, data_file2):
     return check_key(data_file1, data_file2)
 
 
-def view_diff(diff):
-    diff_list = []
-    offset = '  '
-    diff_list.append('{')
-
-    def view_dict(dict4view, offset):
-        for key, value in dict4view.items():
-            if type(value) is not dict:
-                if isinstance(value, bool):
-                    diff_list.append( 
-                        '{arg1}{arg2}: {arg3}'.format(
-                            arg1=offset,
-                            arg2=key,
-                            arg3=str(value).lower(),
-                        ),
-                    )
-                else:
-                    diff_list.append('{}{}: {}'.format(offset, key, value))
-            else:
-                diff_list.append('{}{}: {}'.format(offset, key, '{'))
-                new_offset = offset + '    '
-                view_dict(value, new_offset)
-                diff_list.append('{}{}'.format(offset + '  ', '}'))
-    view_dict(diff, offset)
-    diff_list.append('}')
-    return '\n'.join(diff_list)
-
-
-def generate_diff(file_path1, file_path2, format):
-    data_file1, data_file2 = file_loader(file_path1, file_path2, format)
-    return view_diff(make_diff(data_file1, data_file2))
+def generate_diff(file_path1, file_path2, format='json'):
+    data_file1, data_file2 = file_loader(file_path1, file_path2)
+    choose_formats = generate_formats_dict()
+    return choose_formats[format](make_diff(data_file1, data_file2))
