@@ -28,11 +28,14 @@
     <p>Use <b>gendiff</b> command with appropriate keys.</p>
     <p><i>(More information in asciinemas below)</i></p>
 
-<h4>Compare json format files</h4>
-    <p>gendiff -f json <path2file1> <path2file2></p>
+<h4>Compare json files</h4>
+    <p>gendiff 'path2file1' 'path2file2'</p>
     <a href="https://asciinema.org/a/361037" target="_blank"><img src="https://asciinema.org/a/361037.svg" /></a>
 
-<h4>Compare yaml format files</h4>
-    <p>gendiff -f yaml <path2file1> <path2file2></p>
+<h4>Compare yaml files</h4>
+    <p>gendiff 'path2file1' 'path2file2'</p>
     <a href="https://asciinema.org/a/361039" target="_blank"><img src="https://asciinema.org/a/361039.svg" /></a>
 
+<h4>Compare recursive files</h4>
+    <p>gendiff 'path2file1' 'path2file2'</p>
+    <a href="https://asciinema.org/a/361039" target="_blank"><img src="https://asciinema.org/a/361039.svg" /></a>
