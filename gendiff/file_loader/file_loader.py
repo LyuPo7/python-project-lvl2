@@ -20,7 +20,11 @@ def generate_formats_dict():
 
 
 def file_loader(file_path1, file_path2):
-    """Load yaml 2 files."""
+    """Load 2 files in correct format.
+
+    Returns:
+        dictionary(tuple) - tuple of 2 dictionaries,
+    """
     loaders = generate_formats_dict()
     for key, file_type in loaders.items():
         if file_path1.endswith(key):

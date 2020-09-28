@@ -1,6 +1,6 @@
 # This Python file uses the following encoding: utf-8
 
-"""Functions of project."""
+"""Parser of project."""
 import argparse
 
 
@@ -12,10 +12,9 @@ def create_parser():
     """
     parser = argparse.ArgumentParser(
         prog='gendiff',
-		description="""Description: 
-            The program finds difference between two files.
-            """,
-		epilog="""(c) September 2020. 
+		description="""Description:
+            The program finds difference between two files.""",
+		epilog="""(c) September 2020.
             The developer isn't responsible for any problems
             which might result from work of this program.
             """,
@@ -36,7 +35,7 @@ def create_parser():
         '-f',
         '--format',
         type=str,
-        default='',
+        default='dict',
         help='set format of output',
         metavar='FORMAT',
     )
