@@ -9,16 +9,12 @@
 ![Python package](https://github.com/LyuPo7/python-project-lvl2/workflows/Python%20package/badge.svg)
 
 <h3>Project Description:</h3>
-    <p>Project consists of 5 mini-brain-games:</p>
+    <p>Generate difference utility</p>
     <ul>
-        <li><b>brain_gcd</b> - in this mini-game you'll have to calculate the GCD of two numbers.</li>
-        <li><b>brain_even</b> - in this mini-game you'll have to decide if the given number is even.</li>
-        <li><b>brain_calc</b> - in this mini-game you'll have to calculate the result of the expression.</li>
-        <li><b>brain_progression</b> - in this mini-game you'll have to find missing number in the progression.</li>
-        <li><b>brain_prime</b> - in this mini-game you'll have to decide if the given number number is prime.</li>
+        <li>Works with 2 types files: <b>.json, .yaml</b>;</li>
+        <li>Works with nested files;</li>
+        <li>Supports 3 different formats for output.</li>
     </ul>
-    <p>Choose any game you would like to play. You'll have to give 3 correct answers in the row for win.
-    Play any game using <b>brain_games</b> command.</p>
 
 <h3>Installation:</h3>
     <p>for install type in command line:</p>
@@ -30,12 +26,20 @@
 
 <h4>Compare json files</h4>
     <p>gendiff 'path2file1' 'path2file2'</p>
-    <a href="https://asciinema.org/a/361037" target="_blank"><img src="https://asciinema.org/a/361037.svg" /></a>
+    <a href="https://asciinema.org/a/362104" target="_blank"><img src="https://asciinema.org/a/362104.svg" /></a>
 
 <h4>Compare yaml files</h4>
     <p>gendiff 'path2file1' 'path2file2'</p>
-    <a href="https://asciinema.org/a/361039" target="_blank"><img src="https://asciinema.org/a/361039.svg" /></a>
+    <a href="https://asciinema.org/a/362105" target="_blank"><img src="https://asciinema.org/a/362105.svg" /></a>
 
 <h4>Compare recursive files</h4>
     <p>gendiff 'path2file1' 'path2file2'</p>
-    <a href="https://asciinema.org/a/361039" target="_blank"><img src="https://asciinema.org/a/361039.svg" /></a>
+    <a href="https://asciinema.org/a/362106" target="_blank"><img src="https://asciinema.org/a/362106.svg" /></a>
+
+<h4>Compare files with plaintext output</h4>
+    <p>gendiff -f plain 'path2file1' 'path2file2'</p>
+    <a href="https://asciinema.org/a/362107" target="_blank"><img src="https://asciinema.org/a/362107.svg" /></a>
+
+<h4>Compare files with json output</h4>
+    <p>gendiff -f json 'path2file1' 'path2file2'</p>
+    <a href="https://asciinema.org/a/362108" target="_blank"><img src="https://asciinema.org/a/362108.svg" /></a>
