@@ -22,13 +22,28 @@ def generate_formats_dict():
 
 
 def check_dict(data):
+    """Check and print dictionary in dict format.
+
+    Checks for every key if its value is dictionary:
+    if so calls recursively itself,
+    in other case add value to new dictionary.
+
+    Args:
+        data(dict): dictionary for check.
+
+    Returns:
+        data_dict(dict): dictionary for check.
+    """
     data_dict = {}
     for key in data.keys():
-        if type(data[key]) is dict:
-            data_dict['  {}'.format(key)] = check_dict(data[key])
-        else:
-            data_dict['  {}'.format(key)] = data[key]
+        data_dict['  {}'.format(key)] = add2dict(data[key])
     return data_dict
+
+
+def add2dict(value):
+    if type(value) is dict:
+        return check_dict(value)
+    return value
 
 
 def make_diff(data_file1, data_file2):
@@ -72,15 +87,9 @@ def make_diff(data_file1, data_file2):
                             diff['+ {}'.format(key)] = data2[key]
                             diff['- {}'.format(key)] = check_dict(data1[key])
             elif key in keys1 and key not in keys2:
-                if type(data1[key]) is dict:
-                    diff['- {}'.format(key)] = check_dict(data1[key])
-                else:
-                    diff['- {}'.format(key)] = data1[key]
+                diff['- {}'.format(key)] = add2dict(data1[key])
             elif key not in keys1 and key in keys2:
-                if type(data2[key]) is dict:
-                    diff['+ {}'.format(key)] = check_dict(data2[key])
-                else:
-                    diff['+ {}'.format(key)] = data2[key]
+                diff['+ {}'.format(key)] = add2dict(data2[key])
         return diff
     return check_key(data_file1, data_file2)
 
