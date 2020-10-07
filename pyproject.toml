@@ -15,12 +15,12 @@ packages = [
 [tool.poetry.dependencies]
 python = "^3.6"
 argparse = "^1.4.0"
-pytest = "^6.0.2"
-flake8 = "^3.8.3"
-pytest-cov = "^2.10.1"
 pyYaml = "^5.3.1"
 
 [tool.poetry.dev-dependencies]
+pytest = "^6.0.2" 
+flake8 = "^3.8.3"
+pytest-cov = "^2.10.1"
 
 [tool.poetry.scripts]
 gendiff = "gendiff.scripts.gendiff:main"
