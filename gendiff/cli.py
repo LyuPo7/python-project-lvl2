@@ -35,7 +35,8 @@ def create_parser():
         '-f',
         '--format',
         type=str,
-        default='dict',
+        default='default',
+        choices=('plain', 'json', 'default'),
         help='set format of output',
         metavar='FORMAT',
     )

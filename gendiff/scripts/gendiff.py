@@ -2,15 +2,14 @@
 
 """Main file of project."""
 from gendiff.cli import create_parser
-from gendiff.generate_diff.generate_diff import generate_diff
-import sys
+from gendiff.scripts import formater
 
 
 def main():
     """Run project."""
     parser = create_parser()
-    namespace = parser.parse_args(sys.argv[1:])
-    diff = generate_diff(
+    namespace = parser.parse_args()
+    diff = formater.generate(
         namespace.first_file,
         namespace.second_file,
         namespace.format,

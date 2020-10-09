@@ -2,10 +2,10 @@ install:
 	poetry install
 
 test:
-	poetry run pytest -vv --cov=gendiff --cov-report xml tests/tests.py
+	poetry run pytest -vv --ff --cov=gendiff --cov-report xml tests/tests.py 
 
 lint:
-	poetry run flake8 gendiff --show-source --ignore=E131 --verbose
+	poetry run flake8 gendiff --show-source --ignore=E131,E501 --verbose
 
 selfcheck:
 	poetry check
