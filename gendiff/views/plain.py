@@ -52,9 +52,9 @@ def view(diff):
         """
         if special_keys.intersection(dict4view.keys()) == {'+'}:
             diff_list.append(
-                "Property '{a1}' was added with value: {a2}".format(
-                    a1=path,
-                    a2=convert2plain(dict4view['+']),
+                "Property '{}' was added with value: {}".format(
+                    path,
+                    convert2plain(dict4view['+']),
                 ),
             )
         elif special_keys.intersection(dict4view.keys()) == {'-'}:
@@ -64,10 +64,10 @@ def view(diff):
         elif special_keys.intersection(dict4view.keys()) == special_keys:
             if not isinstance(dict4view['+'], dict) or not isinstance(dict4view['-'], dict):
                 diff_list.append(
-                    "Property '{a}' was updated. From {b} to {c}".format(
-                        a=path,
-                        b=convert2plain(dict4view['-']),
-                        c=convert2plain(dict4view['+']),
+                    "Property '{}' was updated. From {} to {}".format(
+                        path,
+                        convert2plain(dict4view['-']),
+                        convert2plain(dict4view['+']),
                     ),
                 )
             else:

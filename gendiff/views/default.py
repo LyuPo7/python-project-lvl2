@@ -53,57 +53,27 @@ def view(diff):
         for key in sorted(dict4view.keys()):
             if not isinstance(dict4view[key], dict):
                 diff_list.append(
-                    '{arg1}  {arg2}: {arg3}'.format(
-                        arg1=offset,
-                        arg2=key,
-                        arg3=bool2json(dict4view[key]),
-                    ),
-                )
+                    '{}  {}: {}'.format(offset, key, bool2json(dict4view[key])))
             else:
                 if check_spec_symb(dict4view[key]):
                     for k in sorted(dict4view[key].keys()):
                         if isinstance(dict4view[key][k], dict):
                             diff_list.append(
-                                '{arg1}{arg2}{arg3}: {arg4}'.format(
-                                    arg1=offset,
-                                    arg2=k.ljust(2),
-                                    arg3=key,
-                                    arg4='{',
-                                ),
-                            )
+                                '{}{}{}: {}'.format(offset, k.ljust(2), key, '{'))
                             new_offset = offset + ' ' * 4
                             view_default(dict4view[key][k], new_offset)
                             diff_list.append(
-                                '{arg1}{arg2}'.format(
-                                    arg1=offset + ' ' * 2,
-                                    arg2='}'
-                                ),
-                            )
+                                '{}{}'.format(offset + ' ' * 2, '}'))
                         else:
                             diff_list.append(
-                                '{arg1}{arg2}{arg3}: {arg4}'.format(
-                                    arg1=offset,
-                                    arg2=k.ljust(2),
-                                    arg3=key,
-                                    arg4=bool2json(dict4view[key][k]),
-                                ),
-                            )
+                                '{}{}{}: {}'.format(offset, k.ljust(2), key, bool2json(dict4view[key][k])))
                 else:
                     diff_list.append(
-                        '{arg1}  {arg2}: {arg3}'.format(
-                            arg1=offset,
-                            arg2=key,
-                            arg3='{',
-                        ),
-                    )
+                        '{}  {}: {}'.format(offset, key, '{'))
                     new_offset = offset + ' ' * 4
                     view_default(dict4view[key], new_offset)
                     diff_list.append(
-                        '{arg1}{arg2}'.format(
-                            arg1=offset + ' ' * 2,
-                            arg2='}'
-                        ),
-                    )
+                        '{}{}'.format(offset + ' ' * 2, '}'))
     view_default(diff, offset)
     diff_list.append('}')
     return '\n'.join(diff_list)
