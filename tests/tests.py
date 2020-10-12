@@ -4,68 +4,32 @@
 
 from gendiff.scripts import formater
 import json
+import pytest
 
 
-def test_generate_diff_json():
+@pytest.mark.parametrize("path_1,path_2,true_path,format", [
+    ('tests/fixtures/json/file1.json', 'tests/fixtures/json/file2.json', 'tests/fixtures/diff_file1_file2.txt', 'default'),
+    ('tests/fixtures/yaml/file1.yaml', 'tests/fixtures/yaml/file2.yaml', 'tests/fixtures/diff_file1_file2.txt', 'default'),
+    ('tests/fixtures/json/file3.json', 'tests/fixtures/json/file4.json', 'tests/fixtures/diff_file3_file4_default.txt', 'default'),
+    ('tests/fixtures/json/file3.json', 'tests/fixtures/json/file4.json', 'tests/fixtures/diff_file3_file4_plain.txt', 'plain'),
+])
+def test_diff_view_text(path_1, path_2, true_path, format):
     """Check generate_diff for json files."""
-    generated_str = formater.generate(
-        'tests/fixtures/json/file1.json',
-        'tests/fixtures/json/file2.json',
-    )
-    with open('tests/fixtures/diff_file1_file2.txt', 'r') as file_w_answer:
+    generated_str = formater.generate(path_1,path_2,format)
+    with open(true_path, 'r') as file_w_answer:
         true_str = file_w_answer.read()
 
     assert true_str == generated_str
 
 
-def test_generate_diff_yaml():
-    """Check generate_diff for yaml files."""
-    generated_str = formater.generate(
-        'tests/fixtures/yaml/file1.yaml',
-        'tests/fixtures/yaml/file2.yaml',
-    )
-
-    with open('tests/fixtures/diff_file1_file2.txt', 'r') as file_w_answer:
-        true_str = file_w_answer.read()
-
-    assert true_str == generated_str
-
-
-def test_generate_diff_json_recursive():
-    """Check generate_diff for nested json format."""
-    generated_str = formater.generate(
-        'tests/fixtures/json/file3.json',
-        'tests/fixtures/json/file4.json',
-    )
-
-    with open('tests/fixtures/diff_file3_file4_default.txt', 'r') as file_w_answer:
-        true_str = file_w_answer.read()
-
-    assert true_str == generated_str
-
-
-def test_generate_diff_plain_output():
-    """Check generate_diff with plain output."""
-    generated_str = formater.generate(
-        'tests/fixtures/json/file3.json',
-        'tests/fixtures/json/file4.json',
-        'plain'
-    )
-    with open('tests/fixtures/diff_file3_file4_plain.txt', 'r') as file_w_answer:
-        true_str = file_w_answer.read()
-
-    assert true_str == generated_str
-
-
-def test_generate_diff_json_output():
+@pytest.mark.parametrize("path_1,path_2,true_path,format", [
+    ('tests/fixtures/json/file3.json', 'tests/fixtures/json/file4.json', 'tests/fixtures/diff_file3_file4_json.json', 'json'),
+])
+def test_diff_view_json(path_1, path_2, true_path, format):
     """Check generate_diff with json output."""
-    generated_str = formater.generate(
-        'tests/fixtures/json/file3.json',
-        'tests/fixtures/json/file4.json',
-        'json'
-    )
+    generated_str = formater.generate(path_1, path_2, format)
 
-    with open('tests/fixtures/diff_file3_file4_json.json') as file_w_answer:
+    with open(true_path) as file_w_answer:
         true_json = json.load(file_w_answer)
 
     generated_json = json.loads(generated_str)
