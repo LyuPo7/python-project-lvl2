@@ -5,3 +5,4 @@ dist/
 .venv/
 cc-test-reporter
 coverage.xml
+.coverage

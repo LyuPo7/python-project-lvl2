@@ -1,9 +1,13 @@
 # This Python file uses the following encoding: utf-8
 
 """Plain view module."""
+from gendiff import diff
+
+# Constants
+COMPLEX_VALUE = '[complex value]'
 
 
-def convert2plain(value):
+def plain(value):
     """Convert value to plain format.
 
     Returns output in dependence of type of value.
@@ -15,14 +19,14 @@ def convert2plain(value):
         value(str): converted value.
         """
     if isinstance(value, dict):
-        return '[complex value]'
+        return COMPLEX_VALUE
     elif isinstance(value, bool):
         return str(value).lower()
     else:
         return "'{}'".format(value)
 
 
-def view(diff):
+def view(diffs):
     """View in plain format difference between 2 files.
 
     Views in plain format difference between 2 files.
@@ -33,8 +37,7 @@ def view(diff):
     Returns:
         str - difference between 2 files in str format.
     """
-    special_keys = {'+', '-'}
-    diff_list = []
+    diffl = []
     path = ''
 
     def view_plain(dict4view, path):
@@ -50,34 +53,36 @@ def view(diff):
             dict4view(dict): dictionary for check,
             path(str): path to every value in the dictionary.
         """
-        if special_keys.intersection(dict4view.keys()) == {'+'}:
-            diff_list.append(
-                "Property '{}' was added with value: {}".format(
-                    path,
-                    convert2plain(dict4view['+']),
-                ),
-            )
-        elif special_keys.intersection(dict4view.keys()) == {'-'}:
-            diff_list.append(
-                "Property '{}' was removed".format(path),
-            )
-        elif special_keys.intersection(dict4view.keys()) == special_keys:
-            if not isinstance(dict4view['+'], dict) or not isinstance(dict4view['-'], dict):
-                diff_list.append(
-                    "Property '{}' was updated. From {} to {}".format(
-                        path,
-                        convert2plain(dict4view['-']),
-                        convert2plain(dict4view['+']),
-                    ),
-                )
-            else:
-                view_plain(dict4view['+'], path)
-        else:
-            for key in sorted(dict4view.keys()):
+        for key, node in sorted(dict4view.items()):
+            if isinstance(node, dict):
+                node_type = node.get(diff.TYPE)
+                node_value = node.get(diff.VALUE)
                 new_path = path + key
-                if isinstance(dict4view[key], dict):
-                    if not special_keys.intersection(dict4view[key].keys()):
+                if node_type:
+                    if node_type == diff.REMOVED:
+                        diffl.append(
+                            "Property '{}' was removed".format(new_path),
+                        )
+                    elif node_type == diff.ADDED:
+                        diffl.append(
+                            "Property '{}' was added with value: {}".format(
+                                new_path,
+                                plain(node_value),
+                            ),
+                        )
+                    elif node_type == diff.CHANGED:
+                        node_value_old = node.get(diff.OLD_VALUE)
+                        diffl.append(
+                            "Property '{}' was updated. From {} to {}".format(
+                                new_path,
+                                plain(node_value_old),
+                                plain(node_value),
+                            ),
+                        )
+                else:
+                    new_path = path + key
+                    if isinstance(node, dict):
                         new_path += '.'
-                    view_plain(dict4view[key], new_path)
-    view_plain(diff, path)
-    return '\n'.join(diff_list)
+                        view_plain(node, new_path)
+    view_plain(diffs, path)
+    return '\n'.join(diffl)

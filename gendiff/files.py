@@ -7,7 +7,7 @@ import yaml
 import os
 
 
-def generate_formats_dict():
+def formats():
     """Generate dictionary of the formats.
 
     Returns:
@@ -26,7 +26,9 @@ def load(file_path):
     Returns:
         dictionary(tuple) - tuple of dictionaries,
     """
-    loaders = generate_formats_dict()
-    file_name1, ext = os.path.splitext(file_path)
-    loader = loaders[ext.lower()]
-    return loader(open(file_path))
+    _, ext = os.path.splitext(file_path)
+    loader = formats().get(ext.lower())
+    if not loader:
+        print('Invalid extension of file: {}'.format(file_path))
+    else:
+        return loader(open(file_path))

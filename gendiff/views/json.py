@@ -15,4 +15,4 @@ def view(diff):
     Returns:
         str - difference between 2 files in str format.
     """
-    return json.dumps(diff)
+    return json.dumps(diff, sort_keys=True, indent=4)

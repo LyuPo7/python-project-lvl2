@@ -2,7 +2,7 @@
 
 """Tests for gendiff."""
 
-from gendiff.scripts import formater
+from gendiff import formats
 import json
 import pytest
 
@@ -15,7 +15,7 @@ import pytest
 ])
 def test_diff_view_text(path_1, path_2, true_path, format):
     """Check generate_diff for json files."""
-    generated_str = formater.generate(path_1,path_2,format)
+    generated_str = formats.generate(path_1,path_2,format)
     with open(true_path, 'r') as file_w_answer:
         true_str = file_w_answer.read()
 
@@ -27,7 +27,7 @@ def test_diff_view_text(path_1, path_2, true_path, format):
 ])
 def test_diff_view_json(path_1, path_2, true_path, format):
     """Check generate_diff with json output."""
-    generated_str = formater.generate(path_1, path_2, format)
+    generated_str = formats.generate(path_1, path_2, format)
 
     with open(true_path) as file_w_answer:
         true_json = json.load(file_w_answer)

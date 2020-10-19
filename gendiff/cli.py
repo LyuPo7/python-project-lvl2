@@ -2,6 +2,7 @@
 
 """Parser of project."""
 import argparse
+from gendiff import views
 
 
 def create_parser():
@@ -35,8 +36,8 @@ def create_parser():
         '-f',
         '--format',
         type=str,
-        default='default',
-        choices=('plain', 'json', 'default'),
+        default=views.DEFAULT,
+        choices=(views.PLAIN, views.JSON, views.DEFAULT),
         help='set format of output',
         metavar='FORMAT',
     )

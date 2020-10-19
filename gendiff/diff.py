@@ -1,6 +1,15 @@
 # This Python file uses the following encoding: utf-8
 
 """Functions for work with json files."""
+# Constants
+ADDED = 'added'
+REMOVED = 'removed'
+CHANGED = 'changed'
+SAVED = 'saved'
+
+TYPE = 'type'
+VALUE = 'value'
+OLD_VALUE = 'old_value'
 
 
 def check_dict(data):
@@ -29,7 +38,7 @@ def make_diff(data1, data2):
 
     Finds difference between two given files.
 
-    Args:
+    Args:indents
         file_path1(str): path to 1st file,
         file_path2(str): path to 2st file,
         format(str): file format,
@@ -37,25 +46,26 @@ def make_diff(data1, data2):
     Returns:
         diff(str) - the difference between two given files.
     """
-    skeys1 = set(data1.keys())
-    skeys2 = set(data2.keys())
+    all_keys = data1.keys() & data2.keys()
+    only_data1_keys = data1.keys() - data2.keys()
+    only_data2_keys = data2.keys() - data1.keys()
     diff = {}
-    for key in skeys1.intersection(skeys2):
+    for key in all_keys:
+        cond1 = isinstance(data1[key], dict)
+        cond2 = isinstance(data2[key], dict)
         if data1[key] == data2[key]:
-            diff[key] = {' ': data2[key]}
+            diff[key] = {TYPE: SAVED, VALUE: data2[key]}
         else:
-            cond1 = isinstance(data1[key], dict)
-            cond2 = isinstance(data2[key], dict)
             if cond1 and cond2:
                 diff[key] = make_diff(data1[key], data2[key])
             elif not cond1 and cond2:
-                diff[key] = {'+': check_dict(data2[key]), '-': data1[key]}
+                diff[key] = {TYPE: CHANGED, VALUE: check_dict(data2[key]), OLD_VALUE: data1[key]}
             elif cond1 and not cond2:
-                diff[key] = {'+': data2[key], '-': check_dict(data1[key])}
+                diff[key] = {TYPE: CHANGED, VALUE: data2[key], OLD_VALUE: check_dict(data1[key])}
             else:
-                diff[key] = {'+': data2[key], '-': data1[key]}
-    for key in skeys1.difference(skeys2):
-        diff[key] = {'-': data1[key]}
-    for key in skeys2.difference(skeys1):
-        diff[key] = {'+': data2[key]}
+                diff[key] = {TYPE: CHANGED, VALUE: data2[key], OLD_VALUE: data1[key]}
+    for key in only_data1_keys:
+        diff[key] = {TYPE: REMOVED, VALUE: data1[key]}
+    for key in only_data2_keys:
+        diff[key] = {TYPE: ADDED, VALUE: data2[key]}
     return diff
