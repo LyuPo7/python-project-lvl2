@@ -1,68 +1,80 @@
 {
     "common": {
-        "follow": {
-            "type": "added",
-            "value": false
-        },
-        "setting1": {
-            "type": "saved",
-            "value": "Value 1"
-        },
-        "setting2": {
-            "type": "removed",
-            "value": 200
-        },
-        "setting3": {
-            "old_value": true,
-            "type": "changed",
-            "value": {
-                "key": "value"
-            }
-        },
-        "setting4": {
-            "type": "added",
-            "value": "blah blah"
-        },
-        "setting5": {
-            "type": "added",
-            "value": {
-                "key5": "value5"
-            }
-        },
-        "setting6": {
-            "doge": {
-                "wow": {
-                    "old_value": "too much",
-                    "type": "changed",
-                    "value": "so much"
+        "type": "nested",
+        "value": {
+            "follow": {
+                "type": "added",
+                "value": false
+            },
+            "setting1": {
+                "type": "saved",
+                "value": "Value 1"
+            },
+            "setting2": {
+                "type": "removed",
+                "value": 200
+            },
+            "setting3": {
+                "old_value": true,
+                "type": "changed",
+                "value": {
+                    "key": "value"
                 }
             },
-            "key": {
-                "type": "saved",
-                "value": "value"
-            },
-            "ops": {
+            "setting4": {
                 "type": "added",
-                "value": "vops"
+                "value": "blah blah"
+            },
+            "setting5": {
+                "type": "added",
+                "value": {
+                    "key5": "value5"
+                }
+            },
+            "setting6": {
+                "type": "nested",
+                "value": {
+                    "doge": {
+                        "type": "nested",
+                        "value": {
+                            "wow": {
+                                "old_value": "too much",
+                                "type": "changed",
+                                "value": "so much"
+                            }
+                        }
+                    },
+                    "key": {
+                        "type": "saved",
+                        "value": "value"
+                    },
+                    "ops": {
+                        "type": "added",
+                        "value": "vops"
+                    }
+                }
             }
         }
     },
     "group1": {
-        "baz": {
-            "old_value": "bas",
-            "type": "changed",
-            "value": "bars"
-        },
-        "foo": {
-            "type": "saved",
-            "value": "bar"
-        },
-        "nest": {
-            "old_value": {
-                "key": "value"
+        "type": "nested",
+        "value": {
+            "baz": {
+                "old_value": "bas",
+                "type": "changed",
+                "value": "bars"
             },
-            "type": "changed",
-            "value": "str"
+            "foo": {
+                "type": "saved",
+                "value": "bar"
+            },
+            "nest": {
+                "old_value": {
+                    "key": "value"
+                },
+                "type": "changed",
+                "value": "str"
+            }
         }
     },
     "group2": {

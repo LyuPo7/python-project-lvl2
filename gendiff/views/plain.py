@@ -54,35 +54,32 @@ def view(diffs):
             path(str): path to every value in the dictionary.
         """
         for key, node in sorted(dict4view.items()):
-            if isinstance(node, dict):
-                node_type = node.get(diff.TYPE)
-                node_value = node.get(diff.VALUE)
+            node_type = node[diff.TYPE]
+            node_value = node[diff.VALUE]
+            new_path = path + key
+            if node_type == diff.REMOVED:
+                diffl.append(
+                    "Property '{}' was removed".format(new_path),
+                )
+            elif node_type == diff.ADDED:
+                diffl.append(
+                    "Property '{}' was added with value: {}".format(
+                        new_path,
+                        plain(node_value),
+                    ),
+                )
+            elif node_type == diff.CHANGED:
+                node_value_old = node.get(diff.OLD_VALUE)
+                diffl.append(
+                    "Property '{}' was updated. From {} to {}".format(
+                        new_path,
+                        plain(node_value_old),
+                        plain(node_value),
+                    ),
+                )
+            elif node_type == diff.NESTED:
                 new_path = path + key
-                if node_type:
-                    if node_type == diff.REMOVED:
-                        diffl.append(
-                            "Property '{}' was removed".format(new_path),
-                        )
-                    elif node_type == diff.ADDED:
-                        diffl.append(
-                            "Property '{}' was added with value: {}".format(
-                                new_path,
-                                plain(node_value),
-                            ),
-                        )
-                    elif node_type == diff.CHANGED:
-                        node_value_old = node.get(diff.OLD_VALUE)
-                        diffl.append(
-                            "Property '{}' was updated. From {} to {}".format(
-                                new_path,
-                                plain(node_value_old),
-                                plain(node_value),
-                            ),
-                        )
-                else:
-                    new_path = path + key
-                    if isinstance(node, dict):
-                        new_path += '.'
-                        view_plain(node, new_path)
+                new_path += '.'
+                view_plain(node_value, new_path)
     view_plain(diffs, path)
     return '\n'.join(diffl)

@@ -30,7 +30,7 @@ def create_parser():
         'second_file',
         metavar='second_file',
         type=str,
-        help='first file',
+        help='second file',
     )
     parser.add_argument(
         '-f',

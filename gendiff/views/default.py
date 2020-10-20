@@ -31,6 +31,22 @@ def set_symb():
     }
 
 
+def display_dict(data, offset):
+    r = []
+
+    def display(d, off):
+        for key, val in sorted(d.items()):
+            if not isinstance(val, dict):
+                r.append('{}  {}: {}'.format(off, key, val))
+            else:
+                r.append('{}  {}: {}'.format(off, key, '{'))
+                new_off = off + ' ' * 4
+                display(val, new_off)
+                r.append('{}{}'.format(off + ' ' * 2, '}'))
+        return '\n'.join(r)
+    return display(data, offset)
+
+
 def view(data):
     """View in dict format difference between 2 files.
 
@@ -58,50 +74,37 @@ def view(data):
             offset(str): offset for print value.
         """
         for key, node in sorted(dict4view.items()):
-            if isinstance(node, dict):
-                node_type = node.get(diff.TYPE)
-                node_value = node.get(diff.VALUE)
-                if node_type:
-                    if not isinstance(node_value, dict):
-                        if node_type == diff.CHANGED:
-                            res.append('{}{} {}: {}'.format(offset, ADDED, key, bool2json(node_value)))
-                            if not isinstance(node[diff.OLD_VALUE], dict):
-                                res.append('{}{} {}: {}'.format(offset, REMOVED, key, bool2json(node[diff.OLD_VALUE])))
-                            else:
-                                res.append('{}{} {}: {}'.format(offset, REMOVED, key, '{'))
-                                new_offset = offset + ' ' * 4
-                                view_default(node[diff.OLD_VALUE], new_offset)
-                                res.append('{}{}'.format(offset + ' ' * 2, '}'))
-                        else:
-                            res.append('{}{} {}: {}'.format(offset, set_symb()[node_type], key, bool2json(node_value)))
+            node_type = node[diff.TYPE]
+            node_value = node[diff.VALUE]
+            if node_type == diff.CHANGED:
+                if not isinstance(node_value, dict):
+                    res.append('{}{} {}: {}'.format(offset, ADDED, key, bool2json(node_value)))
+                    if not isinstance(node[diff.OLD_VALUE], dict):
+                        res.append('{}{} {}: {}'.format(offset, REMOVED, key, bool2json(node[diff.OLD_VALUE])))
                     else:
-                        if node_type == diff.CHANGED:
-                            res.append('{}{} {}: {}'.format(offset, ADDED, key, '{'))
-                            new_offset = offset + ' ' * 4
-                            view_default(node_value, new_offset)
-                            res.append('{}{}'.format(offset + ' ' * 2, '}'))
-                            if not isinstance(node[diff.OLD_VALUE], dict):
-                                res.append('{}{} {}: {}'.format(offset, REMOVED, key, bool2json(node[diff.OLD_VALUE])))
-                            else:
-                                res.append('{}{} {}: {}'.format(offset, REMOVED, key, '{'))
-                                new_offset = offset + ' ' * 4
-                                view_default(node[diff.OLD_VALUE], new_offset)
-                                res.append('{}{}'.format(offset + ' ' * 2, '}'))
-                        else:
-                            res.append('{}{} {}: {}'.format(offset, set_symb()[node_type], key, '{'))
-                            new_offset = offset + ' ' * 4
-                            view_default(node_value, new_offset)
-                            res.append('{}{}'.format(offset + ' ' * 2, '}'))
-                else:
-                    if not isinstance(node, dict):
-                        res.append('{}  {}: {}'.format(offset, key, bool2json(node)))
-                    else:
-                        res.append('{}  {}: {}'.format(offset, key, '{'))
+                        res.append('{}{} {}: {}'.format(offset, REMOVED, key, '{'))
                         new_offset = offset + ' ' * 4
-                        view_default(node, new_offset)
+                        res.append(display_dict(node[diff.OLD_VALUE], new_offset))
                         res.append('{}{}'.format(offset + ' ' * 2, '}'))
-            else:
-                res.append('{}  {}: {}'.format(offset, key, bool2json(node)))
+                else:
+                    res.append('{}{} {}: {}'.format(offset, ADDED, key, '{'))
+                    new_offset = offset + ' ' * 4
+                    res.append(display_dict(node_value, new_offset))
+                    res.append('{}{}'.format(offset + ' ' * 2, '}'))
+                    res.append('{}{} {}: {}'.format(offset, REMOVED, key, bool2json(node[diff.OLD_VALUE])))
+            if node_type in (diff.ADDED, diff.REMOVED, diff.SAVED):
+                if not isinstance(node_value, dict):
+                    res.append('{}{} {}: {}'.format(offset, set_symb()[node_type], key, bool2json(node_value)))
+                else:
+                    res.append('{}{} {}: {}'.format(offset, set_symb()[node_type], key, '{'))
+                    new_offset = offset + ' ' * 4
+                    res.append(display_dict(node_value, new_offset))
+                    res.append('{}{}'.format(offset + ' ' * 2, '}'))
+            if node_type == diff.NESTED:
+                res.append('{}{} {}: {}'.format(offset, SAVED, key, '{'))
+                new_offset = offset + ' ' * 4
+                view_default(node_value, new_offset)
+                res.append('{}{}'.format(offset + ' ' * 2, '}'))
     view_default(data, offset)
     res.append('}')
     return '\n'.join(res)

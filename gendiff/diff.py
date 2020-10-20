@@ -6,6 +6,7 @@ ADDED = 'added'
 REMOVED = 'removed'
 CHANGED = 'changed'
 SAVED = 'saved'
+NESTED = 'nested'
 
 TYPE = 'type'
 VALUE = 'value'
@@ -57,7 +58,7 @@ def make_diff(data1, data2):
             diff[key] = {TYPE: SAVED, VALUE: data2[key]}
         else:
             if cond1 and cond2:
-                diff[key] = make_diff(data1[key], data2[key])
+                diff[key] = {TYPE: NESTED, VALUE: make_diff(data1[key], data2[key])}
             elif not cond1 and cond2:
                 diff[key] = {TYPE: CHANGED, VALUE: check_dict(data2[key]), OLD_VALUE: data1[key]}
             elif cond1 and not cond2:

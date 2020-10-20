@@ -14,8 +14,7 @@ def main():
         namespace.second_file,
         namespace.format,
     )
-    if diff:
-        print(diff)
+    print(diff)
 
 
 if __name__ == '__main__':
